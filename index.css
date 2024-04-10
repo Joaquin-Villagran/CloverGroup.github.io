@@ -1,0 +1,14 @@
+body {
+    background-image: url("/Img/fondoFeo.jpg");
+    background-position: center;
+    background-size: 150%;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
