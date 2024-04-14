@@ -1,17 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Clover Group</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
+    <!-- HEAD -->
+    <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="#">
+                <div class="p-2" id="nombreCompleto">
+                    <!-- nombre usuario -->
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- paginas -->
+                </ul>
+                <span class="navbar-text">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item ">
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                Acerca de
+                            </button>
+                        </li>
+                        <li class="nav-item ">
+                            <button type="button" class="btn" onclick="limpiarUsuario()"
+                                data-bs-target="#staticBackdrop">
+                                Cambiar nombre
+                            </button>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </nav>
+    <!-- Fin HEAD -->
     <div class="container-fluid text-center">
         <div class="row">
             <div class="px-2 p-4">
@@ -20,43 +56,114 @@
             <div class="px-5">
                 <!-- PRECIO TOTAL -->
                 <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input type="number" placeholder="Valor total de la venta" id="precioTotal" class="form-control"
-                        aria-label="Dollar amount (with dot and two decimal places)" required>
+                    <span class="input-group-text">Venta Total</span><span class="input-group-text">$</span>
+                    <input class="input-element form-control" type="number" size="9" placeholder="Valor total"
+                        id="precioTotal">
                 </div>
-                <!-- ANTICIPO -->
+                <!-- PROBANDO 1 -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">Anticipo</span>
-                    <input type="number" required id="anticipo" placeholder="Anticipo del cliente" class="form-control"
-                        aria-label="Dollar amount (with dot and two decimal places)">
+                    <input type="number" id="anticipo" placeholder="Anticipo en pesos" class="form-control">
+                    <span class="input-group-text">%</span>
+                    <input type="text" id="porcentaje" placeholder="00" class="form-control" maxlength="2">
                 </div>
+                <!-- ANTICIPO -->
+                <!-- <div class="input-group mb-3">
+                    <span class="input-group-text">Anticipo</span><span class="input-group-text">$</span>
+                    <input type="number" id="anticipo" placeholder="Anticipo del cliente" class="form-control">
+                </div> -->
+                <!-- PORCENTAJE -->
+                <!-- <div class="input-group mb-3">
+                    <span class="input-group-text">Anticipo</span><span class="input-group-text">%</span>
+                    <input type="number" id="porcentaje" placeholder="%10" class="form-control">
+                </div> -->
                 <!-- CUOTAS -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">Cuotas</span>
-                    <input type="number" required id="cuotas" placeholder="3, 6, 9, 12, 14 y 18" class="form-control"
-                        aria-label="Dollar amount (with dot and two decimal places)">
+                    <input type="number" id="cuotas" placeholder="3, 6, 9, 12, 14 o 18" class="form-control">
                 </div>
-                <!-- BOTON -->
-                <button type="submit" class="btn btn-primary" onclick="myFunction()">Calcular</button>
+                <!-- BOTON CALCULAR-->
+                <button type="submit" class="btn btn-primary m-4" onclick="validacion()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-calculator-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5m0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5z">
+                        </path>
+                    </svg>
+                    Calcular
+                </button>
+                <!-- BOTON LIMPIAR -->
+                <button type=" reset" class="btn btn-danger m-4" onclick="limpiarTabla()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0">
+                        </path>
+                    </svg>
+                    Borrar
+                </button>
             </div>
             <!-- TABLA DE RESULTADOS -->
             <div id="contenedor" class="container-fluid p-3"></div>
-            <p><a href="https://drive.google.com/drive/folders/1ql8QSii4Kax54rBYTGl2RvC-WtQf-LoC?usp=sharing"
-                    class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">LISTA
-                    DE PRECIO</a></p>
+        </div>
+        <!-- LISTA DE PRECIO -->
+        <a href=" https://drive.google.com/drive/folders/1ql8QSii4Kax54rBYTGl2RvC-WtQf-LoC?usp=sharing"
+            onclick="limpiarTabla()" class="btn btn-secondary " tabindex="-1" role="button" aria-disabled="true"><svg
+                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-clipboard2-check-fill" viewBox="0 0 16 16">
+                <path
+                    d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5" />
+                <path
+                    d="M4.085 1H3.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1h-.585q.084.236.085.5V2a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 4 2v-.5q.001-.264.085-.5m6.769 6.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708.708" />
+            </svg> Lista de Precio</a>
+        <!-- AUTOR -->
+        <footer class="container-fluid text-center p-5">
+            <p class="text-light">Clover Group</p>
+        </footer>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Acerca de Calculadora</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>La aplicación es una calculadora versátil y fácil de usar, diseñada para satisfacer todas
+                        tus necesidades de cálculo en un solo lugar.</p>
+
+                    <h5 class="m-1">Desarrollado por:</h5>
+                    <p>Joaquin Villagran <br>
+                        Sitio web: <a href="https://www.instagram.com/quinvillagran/">@quinvillagran</a> <br>
+                    </p>
+                    <h5 class="m-1">Contáctanos:</h5>
+                    <p>¿Tienes alguna pregunta o sugerencia? ¡Nos encantaría saber de ti! Envíanos un correo
+                        electrónico a <a href="https://www.instagram.com/quinvillagran/">@quinvillagran</a> </p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
-    <footer class="container-fluid text-center p-5">
-        <p class="text-light">Clover Group</p>
-    </footer>
-
-
 
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <script src="index.js"></script>
+    <!-- inputs JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js"
+        integrity="sha512-KaIyHb30iXTXfGyI9cyKFUIRSSuekJt6/vqXtyQKhQP6ozZEGY8nOtRS6fExqE4+RbYHus2yGyYg1BrqxzV6YA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/addons/cleave-phone.us.js"
+        integrity="sha512-sYKXH+IAMtg7mVursFAH+Xu1mIvmSqTd8LTEhKdRmvJhtX2IKUFpkZBZ9pigORvIR6Nt5klEF/P+psiJRa6crQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="/js/index.js"></script>
+
 </body>
 
 </html>
