@@ -57,15 +57,15 @@
                 <!-- PRECIO TOTAL -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">Venta Total</span><span class="input-group-text">$</span>
-                    <input class="input-element form-control" type="number" size="9" placeholder="000000"
+                    <input class="input-element form-control" required type="number" size="9" placeholder="000000"
                         id="precioTotal">
                 </div>
                 <!-- PROBANDO 1 -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">Anticipo</span><span class="input-group-text">$</span>
-                    <input type="number" id="anticipo" placeholder="000000" class="form-control">
+                    <input type="number" id="anticipo" placeholder="000000" required class="form-control">
                     <span class="input-group-text">%</span>
-                    <input type="text" id="porcentaje" placeholder="00" class="form-control" maxlength="2" disabled>
+                    <input type="number" id="porcentaje" required placeholder="00" class="form-control" maxlength="2" disabled>
                 </div>
                 <!-- ANTICIPO -->
                 <!-- <div class="input-group mb-3">
@@ -84,7 +84,7 @@
                 </div> -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">Cuotas</span>
-                    <select class="form-select" aria-label="Default select example" id="cuotas">
+                    <select class="form-select" aria-label="Default select example" id="cuotas" required>
                         <option selected disabled>Seleccionar</option>
                         <option value="0.5907" name="2">2 Cuotas</option>
                         <option value="0.4151">3 Cuotas</option>
