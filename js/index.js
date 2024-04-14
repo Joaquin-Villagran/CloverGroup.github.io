@@ -1,26 +1,24 @@
 //QUE FUNCIONE CUANDO EL PORCENTAJE ES MODIFICADO
 //HACER UN NAVBAR PERZONALIDAO CON NOMBRE, POSIBLEMNETE METER DOCUMENTOS
-/* Nombre en NAVBAR */
-let nombreCompleto;
-let usuarioEnLS = localStorage.getItem("nombre")
-console.log(usuarioEnLS);
+window.onload = function () {
+  let nombreCompleto;
+  let usuarioEnLS = localStorage.getItem("nombre")
 
-// Si había algo almacenado, lo recupero. Si no le pido un ingreso
-if (usuarioEnLS) {
-  let a = document.getElementById("nombreCompleto")
-  a.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-  class="bi bi-person-circle" viewBox="0 0 18 18">
-  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
-  <path fill-rule="evenodd"
-      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1">
-  </path>
-</svg> ${usuarioEnLS}`
-} else {
-  document.location.href = "./saludo.html"
+
+  // Si había algo almacenado, lo recupero. Si no le pido un ingreso
+  if (usuarioEnLS) {
+    let a = document.getElementById("nombreCompleto")
+    a.innerHTML = `<i class="fa-solid fa-user-check" style="color: #ffffff;"></i> ${usuarioEnLS}`
+  } else {
+    document.location.href = "./saludo.html"
+  }
 }
+/* Nombre en NAVBAR */
+
 
 /* SACAR DATOS */
 let container = document.getElementById("contenedor")
+let a = document.getElementById("a")
 const precioTotal = parseFloat(0)
 const porcentaje = parseFloat(0)
 const anticipo = parseFloat(0)
@@ -33,17 +31,34 @@ let totalFinal = 0
 function myFunction() {
   let container = document.getElementById("contenedor")
   const precioTotal = parseFloat(document.getElementById("precioTotal").value)
-  const porcentaje = parseInt(document.getElementById("porcentaje").value)
+  // const porcentaje = parseInt(document.getElementById("porcentaje").value)
   const anticipo = parseFloat(document.getElementById("anticipo").value)
   const cuota = parseInt(document.getElementById("cuotas").value)
   const valorFinal = precioTotal - anticipo
-  let totalFinal = 0
   /* PASAR AL HTML */
+  /* Data del Select Cuota */
+  const selectCuota = document.getElementById("cuotas")
+  const textoSelect = selectCuota.options[selectCuota.selectedIndex].text
+  const numbSelect = selectCuota.options[selectCuota.selectedIndex].value
+
+
+  /* enviar a la tabla Precio Cu0ta */
+  const total = parseFloat(valorFinal) * numbSelect
+  totalFinal = total.toFixed(2);
+  const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+
+
+
+  /* HTML Saldo a Financiar */
+  /*   const a = document.getElementById("a");
+    a.innerHTML = "$" + resultado.toFixed(2); */
+
+
   // cambio el código HTML interno
   container.innerHTML = `<table class="table table-striped">
     <thead class="table-dark">
       <tr>
-        <th scope="col">N° Cuotas</th>
+        <th scope="col">Compra en</th>
         <th scope="col">Saldo a Financiar</th>
         <th scope="col">Anticipo</th>
         <th scope="col">Precio de Cuota</th>
@@ -51,156 +66,163 @@ function myFunction() {
     </thead>
     <tbody class="table-dark">
       <tr>
-        <th scope="row">${cuota}</th>
-        <td id="a"></td>
+        <th scope="row">${textoSelect}</th>
+        <td id="a">$${new Intl.NumberFormat().format(valorFinal)}</td>
         <td id="tablaAnticipo">$${new Intl.NumberFormat().format(anticipo)}</td>
-        <th id="total"></th>
+        <th id="total">$ ${valorTransformado}</th>
       </tr>
     </tbody>
     </table>`
 
   /* SELECCION DE ANTICIPO */
-  if (!anticipo) {
-    /* -----------Con Porcentaje------------- */
-    let conPor = (precioTotal * porcentaje) / 100
-    console.log(conPor);
-    parseInt(document.getElementById("anticipo").value = conPor)
-    /* Enviar al HTML */
-    console.log(precioTotal);
-    /* HTML Anticipo */
-    const element = document.getElementById("tablaAnticipo");
-    element.innerHTML = "$" + conPor;
-    /* HTML Saldo a Financiar */
-    const resultado = precioTotal - conPor
-    const a = document.getElementById("a");
-    a.innerHTML = "$" + resultado.toFixed(2);
-    /* CUOTAS */
-    if (cuota === 3) {
+  // if (!anticipo) {
+  //   /* -----------Con Porcentaje------------- */
+  //   let conPor = (precioTotal * porcentaje) / 100
+  //   console.log(conPor);
+  //   parseInt(document.getElementById("anticipo").value = conPor)
+  //   /* Enviar al HTML */
+  //   console.log(precioTotal);
+  //   /* HTML Anticipo */
+  //   const element = document.getElementById("tablaAnticipo");
+  //   element.innerHTML = "$" + conPor;
+  //   /* HTML Saldo a Financiar */
+  //   const resultado = precioTotal - conPor
+  //   const a = document.getElementById("a");
+  //   a.innerHTML = "$" + resultado.toFixed(2);
+  /* CUOTAS */
+  //   if (cuota === 3) {
 
-      const total = parseFloat(resultado) * 0.4151
-      totalFinal = total.toFixed(2);
-      const valorTransformado = new Intl.NumberFormat().format(totalFinal)
-      /* HTML */
-      const element = document.getElementById("total");
-      element.innerHTML = "$" + valorTransformado;
-    }
-    if (cuota === 6) {
+  //     const total = parseFloat(resultado) * 0.4151
+  //     totalFinal = total.toFixed(2);
+  //     const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+  //     /* HTML */
+  //     const element = document.getElementById("total");
+  //     element.innerHTML = "$" + valorTransformado;
+  //   }
+  //   if (cuota === 6) {
 
-      const total = parseFloat(resultado) * 0.2413
-      totalFinal = total.toFixed(2);
-      const valorTransformado = new Intl.NumberFormat().format(totalFinal)
-      /* HTML */
-      const element = document.getElementById("total");
-      element.innerHTML = "$" + valorTransformado;
-    }
-    if (cuota === 9) {
+  //     const total = parseFloat(resultado) * 0.2413
+  //     totalFinal = total.toFixed(2);
+  //     const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+  //     /* HTML */
+  //     const element = document.getElementById("total");
+  //     element.innerHTML = "$" + valorTransformado;
+  //   }
+  //   if (cuota === 9) {
 
-      const total = parseFloat(resultado) * 0.1852
-      totalFinal = total.toFixed(2);
-      const valorTransformado = new Intl.NumberFormat().format(totalFinal)
-      /* HTML */
-      const element = document.getElementById("total");
-      element.innerHTML = "$" + valorTransformado;
-    }
-    if (cuota === 12) {
+  //     const total = parseFloat(resultado) * 0.1852
+  //     totalFinal = total.toFixed(2);
+  //     const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+  //     /* HTML */
+  //     const element = document.getElementById("total");
+  //     element.innerHTML = "$" + valorTransformado;
+  //   }
+  //   if (cuota === 12) {
 
-      const total = parseFloat(resultado) * 0.1584
-      totalFinal = total.toFixed(2);
-      const valorTransformado = new Intl.NumberFormat().format(totalFinal)
-      /* HTML */
-      const element = document.getElementById("total");
-      element.innerHTML = "$" + valorTransformado;
-    }
-    if (cuota === 14) {
+  //     const total = parseFloat(resultado) * 0.1584
+  //     totalFinal = total.toFixed(2);
+  //     const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+  //     /* HTML */
+  //     const element = document.getElementById("total");
+  //     element.innerHTML = "$" + valorTransformado;
+  //   }
+  //   if (cuota === 14) {
 
-      const total = parseFloat(resultado) * 0.1474
-      totalFinal = total.toFixed(2);
-      const valorTransformado = new Intl.NumberFormat().format(totalFinal)
-      /* HTML */
-      const element = document.getElementById("total");
-      element.innerHTML = "$" + valorTransformado;
-    }
-    if (cuota === 18) {
+  //     const total = parseFloat(resultado) * 0.1474
+  //     totalFinal = total.toFixed(2);
+  //     const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+  //     /* HTML */
+  //     const element = document.getElementById("total");
+  //     element.innerHTML = "$" + valorTransformado;
+  //   }
+  //   if (cuota === 18) {
 
-      const total = parseFloat(resultado) * 0.1340
-      totalFinal = total.toFixed(2);
-      const valorTransformado = new Intl.NumberFormat().format(totalFinal)
-      /* HTML */
-      const element = document.getElementById("total");
-      element.innerHTML = "$" + valorTransformado;
-    }
-    console.log(resultado);
-  } else {
-    /* ---------Sin Porcentaje------------- */
+  //     const total = parseFloat(resultado) * 0.1340
+  //     totalFinal = total.toFixed(2);
+  //     const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+  //     /* HTML */
+  //     const element = document.getElementById("total");
+  //     element.innerHTML = "$" + valorTransformado;
+  //   }
+  //   console.log(resultado);
+  // } else {
+  //   /* ---------Sin Porcentaje------------- */
+  //   const sacPor = (anticipo * 100) / precioTotal
+  //   parseInt(document.getElementById("porcentaje").value = sacPor.toFixed(1))
+  //   const resultado = new Intl.NumberFormat().format(precioTotal - anticipo)
+  //   const a = document.getElementById("a");
+  //   a.innerHTML = "$" + resultado;
+  //   /* CUOTAS */
+  //   if (cuota === 3) {
+
+  //     const total = parseFloat(valorFinal) * 0.4151
+  //     totalFinal = total.toFixed(2);
+  //     const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+  //     /* HTML */
+  //     const element = document.getElementById("total");
+  //     element.innerHTML = "$" + valorTransformado;
+  //   }
+  //   if (cuota === 6) {
+
+  //     const total = parseFloat(valorFinal) * 0.2413
+  //     totalFinal = total.toFixed(2);
+  //     const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+  //     /* HTML */
+  //     const element = document.getElementById("total");
+  //     element.innerHTML = "$" + valorTransformado;
+  //   }
+  //   if (cuota === 9) {
+
+  //     const total = parseFloat(valorFinal) * 0.1852
+  //     totalFinal = total.toFixed(2);
+  //     const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+  //     /* HTML */
+  //     const element = document.getElementById("total");
+  //     element.innerHTML = "$" + valorTransformado;
+  //   }
+  //   if (cuota === 12) {
+
+  //     const total = parseFloat(valorFinal) * 0.1584
+  //     totalFinal = total.toFixed(2);
+  //     const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+  //     /* HTML */
+  //     const element = document.getElementById("total");
+  //     element.innerHTML = "$" + valorTransformado;
+  //   }
+  //   if (cuota === 14) {
+
+  //     const total = parseFloat(valorFinal) * 0.1474
+  //     totalFinal = total.toFixed(2);
+  //     const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+  //     /* HTML */
+  //     const element = document.getElementById("total");
+  //     element.innerHTML = "$" + valorTransformado;
+  //   }
+  //   if (cuota === 18) {
+
+  //     const total = parseFloat(valorFinal) * 0.1340
+  //     totalFinal = total.toFixed(2);
+  //     const valorTransformado = new Intl.NumberFormat().format(totalFinal)
+  //     /* HTML */
+  //     const element = document.getElementById("total");
+  //     element.innerHTML = "$" + valorTransformado;
+  //   }
+
+  // }
+  /* funcione el box de % */
+  function convertirPorcentaje() {
     const sacPor = (anticipo * 100) / precioTotal
     parseInt(document.getElementById("porcentaje").value = sacPor.toFixed(1))
-    const resultado = new Intl.NumberFormat().format(precioTotal - anticipo)
-    const a = document.getElementById("a");
-    a.innerHTML = "$" + resultado;
-    /* CUOTAS */
-    if (cuota === 3) {
-
-      const total = parseFloat(valorFinal) * 0.4151
-      totalFinal = total.toFixed(2);
-      const valorTransformado = new Intl.NumberFormat().format(totalFinal)
-      /* HTML */
-      const element = document.getElementById("total");
-      element.innerHTML = "$" + valorTransformado;
-    }
-    if (cuota === 6) {
-
-      const total = parseFloat(valorFinal) * 0.2413
-      totalFinal = total.toFixed(2);
-      const valorTransformado = new Intl.NumberFormat().format(totalFinal)
-      /* HTML */
-      const element = document.getElementById("total");
-      element.innerHTML = "$" + valorTransformado;
-    }
-    if (cuota === 9) {
-
-      const total = parseFloat(valorFinal) * 0.1852
-      totalFinal = total.toFixed(2);
-      const valorTransformado = new Intl.NumberFormat().format(totalFinal)
-      /* HTML */
-      const element = document.getElementById("total");
-      element.innerHTML = "$" + valorTransformado;
-    }
-    if (cuota === 12) {
-
-      const total = parseFloat(valorFinal) * 0.1584
-      totalFinal = total.toFixed(2);
-      const valorTransformado = new Intl.NumberFormat().format(totalFinal)
-      /* HTML */
-      const element = document.getElementById("total");
-      element.innerHTML = "$" + valorTransformado;
-    }
-    if (cuota === 14) {
-
-      const total = parseFloat(valorFinal) * 0.1474
-      totalFinal = total.toFixed(2);
-      const valorTransformado = new Intl.NumberFormat().format(totalFinal)
-      /* HTML */
-      const element = document.getElementById("total");
-      element.innerHTML = "$" + valorTransformado;
-    }
-    if (cuota === 18) {
-
-      const total = parseFloat(valorFinal) * 0.1340
-      totalFinal = total.toFixed(2);
-      const valorTransformado = new Intl.NumberFormat().format(totalFinal)
-      /* HTML */
-      const element = document.getElementById("total");
-      element.innerHTML = "$" + valorTransformado;
-    }
-
   }
+  convertirPorcentaje()
 }
+
 
 /* Validaciones del Inputs */
 function validacion() {
   const precioTotal = parseFloat(document.getElementById("precioTotal").value)
   const anticipo = parseFloat(document.getElementById("anticipo").value)
-  const cuota = parseInt(document.getElementById("cuotas").value)
+  const selectCuota = document.getElementById('cuotas').value;
 
 
   if (!precioTotal) {
@@ -232,7 +254,7 @@ function validacion() {
   // Si no se cumple la condicion...
   /* return false; 
 }*/
-  else if (!cuota) {
+  else if (!selectCuota) {
     Toastify({
       text: "Debe ingresar 3, 6, 9, 12, 14 o 18",
       duration: 1800,
@@ -259,11 +281,14 @@ function limpiarTabla() {
   parseFloat(document.getElementById("anticipo").value = null);
   parseInt(document.getElementById("cuotas").value = null);
   parseInt(document.getElementById("porcentaje").value = null)
+  const selectCuota = document.getElementById("cuotas")
+  selectCuota.selectedIndex = 0
+
 
   /* NOTIFICACION */
   Toastify({
     text: "Datos eliminados",
-    duration: 1000,
+    duration: 1500,
     gravity: 'top',
     position: 'right',
     className: 'notificacion my-toast',

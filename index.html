@@ -16,10 +16,10 @@
     <!-- HEAD -->
     <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand text-white" href="#">
-                <div class="p-2" id="nombreCompleto">
+            <a class="navbar-brand text-white ">
+                <p class="fs-6 fw-light me-auto mb-2 mb-lg-0" id="nombreCompleto" >
                     <!-- nombre usuario -->
-                </div>
+                </p>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
                 <span class="navbar-text">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item ">
-                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Acerca de
                             </button>
                         </li>
@@ -57,13 +57,13 @@
                 <!-- PRECIO TOTAL -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">Venta Total</span><span class="input-group-text">$</span>
-                    <input class="input-element form-control" type="number" size="9" placeholder="Valor total"
+                    <input class="input-element form-control" type="number" size="9" placeholder="000000"
                         id="precioTotal">
                 </div>
                 <!-- PROBANDO 1 -->
                 <div class="input-group mb-3">
-                    <span class="input-group-text">Anticipo</span>
-                    <input type="number" id="anticipo" placeholder="$" class="form-control">
+                    <span class="input-group-text">Anticipo</span><span class="input-group-text">$</span>
+                    <input type="number" id="anticipo" placeholder="000000" class="form-control">
                     <span class="input-group-text">%</span>
                     <input type="text" id="porcentaje" placeholder="00" class="form-control" maxlength="2" disabled>
                 </div>
@@ -78,12 +78,35 @@
                     <input type="number" id="porcentaje" placeholder="%10" class="form-control">
                 </div> -->
                 <!-- CUOTAS -->
-                <div class="input-group mb-3">
+                <!-- <div class="input-group mb-3">
                     <span class="input-group-text">Cuotas</span>
                     <input type="number" id="cuotas" placeholder="3, 6, 9, 12, 14 o 18" class="form-control">
+                </div> -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Cuotas</span>
+                    <select class="form-select" aria-label="Default select example" id="cuotas">
+                        <option selected disabled>Seleccionar</option>
+                        <option value="0.5907" name="2">2 Cuotas</option>
+                        <option value="0.4151">3 Cuotas</option>
+                        <option value="0.3277">4 Cuotas</option>
+                        <option value="0.2757">5 Cuotas</option>
+                        <option value="0.2413">6 Cuotas</option>
+                        <option value="0.2170">7 Cuotas</option>
+                        <option value="0.1990">8 Cuotas</option>
+                        <option value="0.1852">9 Cuotas</option>
+                        <option value="0.1743">10 Cuotas</option>
+                        <option value="0.1656">11 Cuotas</option>
+                        <option value="0.1584">12 Cuotas</option>
+                        <option value="0.1524">13 Cuotas</option>
+                        <option value="0.1474">14 Cuotas</option>
+                        <option value="0.1432">15 Cuotas</option>
+                        <option value="0.1396">16 Cuotas</option>
+                        <option value="0.1366">17 Cuotas</option>
+                        <option value="0.1340">18 Cuotas</option>
+                    </select>
                 </div>
                 <!-- BOTON CALCULAR-->
-                <button type="submit" class="btn btn-primary m-4" onclick="validacion()">
+                <button type="submit" class="btn btn-primary m-4" onclick="validacion()" id="calcular">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-calculator-fill" viewBox="0 0 16 16">
                         <path
@@ -116,7 +139,32 @@
     <footer class="container-fluid text-center p-5">
         <p class="text-light">Clover Group</p>
     </footer>
-
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Acerca de Calculadora</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Esta aplicación es una calculadora versátil y fácil de usar, diseñada para satisfacer todas
+                    tus necesidades de cálculo en la financiacion en un solo lugar.</div>
+                <div class="modal-body">
+                    <h5>Desarrollado por:</h5>
+                    <p>Joaquin Villagran<br>
+                        Sitio web: <a href="https://www.instagram.com/quinvillagran/">@quinvillagran</a></p>
+                </div>
+                <div class="modal-body">
+                    <h5>Contáctanos:</h5>
+                    <p>¿Tienes alguna pregunta o sugerencia? ¡Nos encantaría saber de ti!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- JS -->
