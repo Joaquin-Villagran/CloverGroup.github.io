@@ -222,13 +222,13 @@ function myFunction() {
 function validacion() {
   const precioTotal = parseFloat(document.getElementById("precioTotal").value)
   const anticipo = parseFloat(document.getElementById("anticipo").value)
-  const selectCuota = document.getElementById('cuotas').value;
+  const selectCuota = document.getElementById('cuotas');
 
 
   if (!precioTotal) {
     // Si no se cumple la condicion...
     Toastify({
-      text: "Ingresar el valor total de la venta (sin punto y coma)",
+      text: "Ingresar el valor total de la venta. (sin punto y coma)",
       duration: 1800,
       gravity: 'top',
       position: 'right',
@@ -240,23 +240,23 @@ function validacion() {
 
     return false;
   }
-  /* else if (!anticipo) {
-       Toastify({
-         text: "Debe ingresar el Anticipo correctamente",
-         duration: 1800,
-         gravity: 'top',
-         position: 'right',
-         className: 'notificacion my-toast',
-         style: {
-           background: "linear-gradient(to right, #DA0000,	#FF0000)",
-         }
-       }).showToast(); */
-  // Si no se cumple la condicion...
-  /* return false; 
-}*/
-  else if (!selectCuota) {
+  else if (!anticipo) {
     Toastify({
-      text: "Debe ingresar 3, 6, 9, 12, 14 o 18",
+      text: "Ingresar anticipo. (sin punto y coma)",
+      duration: 1800,
+      gravity: 'top',
+      position: 'right',
+      className: 'notificacion my-toast',
+      style: {
+        background: "linear-gradient(to right, #DA0000,	#FF0000)",
+      }
+    }).showToast();
+    // Si no se cumple la condicion...
+    return false;
+  }
+  else if (selectCuota.selectedIndex === 0) {
+    Toastify({
+      text: "Seleccionar una cuota.",
       duration: 1800,
       gravity: 'top',
       position: 'right',
